@@ -10,6 +10,7 @@ module.exports = {
         }],
         "no-console": [0],
         "indent": ["error", 2],
-        "semi": ["error", "never"]
+        "semi": ["error", "never"],
+        "node/no-unpublished-require": 0
     }
 }

@@ -6,7 +6,13 @@ const webpack = require('webpack')
 
 module.exports = {
   entry: {
-    main: ['webpack-hot-middleware/client?path=/__webpack_hmr&noInfo=true&reload=true', path.resolve(__dirname, '../src/index.js')]
+    main: [
+      // 'webpack-hot-middleware/client?path=/__webpack_hmr&noInfo=true&reload=true',
+      path.resolve(__dirname, '../src/index.js')
+    ],
+    client: [
+      'webpack-hot-middleware/client?path=/__webpack_hmr&noInfo=true&reload=true'
+    ]
   },
   output: {
     path: path.resolve(__dirname, '../dist/'),

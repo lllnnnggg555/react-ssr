@@ -2,17 +2,12 @@ const Koa = require('koa')
 const app = new Koa()
 const Router = require('koa-router')
 const router = new Router()
-// const renderToString = require('react-dom/server').renderToString
-// const MyPage = require('../lib/server')
-// const React = require('react')
 
 const webpack = require('webpack')
 const webpackConfig = require('../webpack.config/base')
 const compiler = webpack(webpackConfig)
-const middleware = require('koa-webpack')
 // const devMiddleware = require("./src/devMiddleware")
 // const hotMiddleware = require('./src/hotMiddleware')
-
 // app.use(devMiddleware(compiler, {
 //   stats: {
 //     colors: true,
@@ -25,6 +20,8 @@ const middleware = require('koa-webpack')
 // app.use(hotMiddleware(compiler, {
 //   heartbeat: 2000
 // }))
+
+const middleware = require('koa-webpack')
 app.use(middleware({
   compiler: compiler,
   dev: {
@@ -47,10 +44,24 @@ function normalizeAssets(assets) {
   return Array.isArray(assets) ? assets : [assets]
 }
 
+
+const renderToString = require('react-dom/server').renderToString
+const MyPage = require('../lib/server')
+const React = require('react')
+const template = require('art-template')
+
+router.get('/b', (ctx) => {
+  const message = renderToString(React.createElement(MyPage, null))
+  // do something with assetsByChunkName
+  ctx.body = template(process.cwd() + '/src/template.html', {
+    message: message
+  })
+})
+
 router.get('/a', (ctx) => {
   const assetsByChunkName = ctx.state.webpackStats.toJson().assetsByChunkName
   // do something with assetsByChunkName
-  ctx.body=`
+  ctx.body = `
 <html>
   <head>
     <title>My App</title>
@@ -65,7 +76,7 @@ router.get('/a', (ctx) => {
     .filter(path => path.endsWith('.js'))
     .map(path => `<script src="${path}"></script>`)
     .join('\n')}
-		${normalizeAssets(assetsByChunkName.main)
+    ${normalizeAssets(assetsByChunkName.main)
     .filter(path => path.endsWith('.js'))
     .map(path => `<script src="${path}"></script>`)
     .join('\n')}
