@@ -1,7 +1,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const webpack = require('webpack')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+// const webpack = require('webpack')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
@@ -9,10 +10,10 @@ module.exports = {
     main: [
       // 'webpack-hot-middleware/client?path=/__webpack_hmr&noInfo=true&reload=true',
       path.resolve(__dirname, '../src/index.js')
-    ],
-    client: [
-      'webpack-hot-middleware/client?path=/__webpack_hmr&noInfo=true&reload=true'
     ]
+    // client: [
+    //   'webpack-hot-middleware/client?path=/__webpack_hmr&noInfo=true&reload=true'
+    // ]
   },
   output: {
     path: path.resolve(__dirname, '../dist/'),
@@ -26,8 +27,9 @@ module.exports = {
       components: path.resolve(__dirname, '../src/components')
     }
   },
-  mode: 'development',
-  devtool: 'cheap-module-eval-source-map',
+  mode: 'production',
+  // mode: 'development',
+  // devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {
@@ -53,14 +55,17 @@ module.exports = {
     ]
   },
   plugins: [
+    new UglifyJsPlugin(),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: path.resolve(__dirname, '../src/template.html')
+      // filename: 'index.html',
+      filename: path.resolve(__dirname, '../dist/index.html'),
+      template: path.resolve(__dirname, '../src/template.html'),
+      excludeChunks: ['client']
     }),
     new CleanWebpackPlugin([path.resolve(__dirname, '../dist/*')], {
       root: process.cwd()
-    }),
-    new webpack.HotModuleReplacementPlugin()
+    })
+    // new webpack.HotModuleReplacementPlugin()
     // new BundleAnalyzerPlugin()
   ],
   optimization: {
