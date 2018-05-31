@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "babel": "babel ./src --out-dir ./lib",
-    "server": "npm run babel && node ./scripts/server.js"
+    "server": "npm run babel && node ./scripts/server.js",
+    "build": "node ./scripts/build.js"
   },
   "keywords": [
     "ssr",

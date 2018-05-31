@@ -4,7 +4,7 @@ const Router = require('koa-router')
 const router = new Router()
 
 const webpack = require('webpack')
-const webpackConfig = require('../webpack.config/base')
+const webpackConfig = require('../config/webpack.config.dev')
 const compiler = webpack(webpackConfig)
 // const devMiddleware = require("./src/devMiddleware")
 // const hotMiddleware = require('./src/hotMiddleware')

@@ -1,5 +1,5 @@
 var webpack = require('webpack')
-var webpackConfig = require('../webpack.config/base.js')
+var webpackConfig = require('../config/webpack.config.prod')
 
 webpack(webpackConfig, (err, stats) => {
   if (err) {
