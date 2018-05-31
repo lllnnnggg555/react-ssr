@@ -1,14 +1,10 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const webpack = require('webpack')
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
   entry: {
     main: [
-      // 'webpack-hot-middleware/client?path=/__webpack_hmr&noInfo=true&reload=true',
       path.resolve(__dirname, '../src/index.js')
     ]
     // client: [
@@ -27,7 +23,6 @@ module.exports = {
       components: path.resolve(__dirname, '../src/components')
     }
   },
-  // mode: 'production',
   mode: 'development',
   devtool: 'cheap-module-eval-source-map',
   module: {
@@ -55,18 +50,11 @@ module.exports = {
     ]
   },
   plugins: [
-    // new UglifyJsPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      // filename: path.resolve(__dirname, '../dist/index.html'),
-      template: path.resolve(__dirname, '../src/template.html'),
-      excludeChunks: ['client']
-    }),
-    new CleanWebpackPlugin([path.resolve(__dirname, '../dist/*')], {
-      root: process.cwd()
+      template: path.resolve(__dirname, '../src/template.html')
     }),
     new webpack.HotModuleReplacementPlugin()
-    // new BundleAnalyzerPlugin()
   ],
   optimization: {
     splitChunks: {

@@ -52,7 +52,7 @@ const template = require('art-template')
 
 router.get('/b', (ctx) => {
   const message = renderToString(React.createElement(MyPage, null))
-  // do something with assetsByChunkName
+  
   ctx.body = template(process.cwd() + '/src/template.html', {
     message: message
   })
@@ -60,7 +60,7 @@ router.get('/b', (ctx) => {
 
 router.get('/a', (ctx) => {
   const assetsByChunkName = ctx.state.webpackStats.toJson().assetsByChunkName
-  // do something with assetsByChunkName
+  
   ctx.body = `
 <html>
   <head>

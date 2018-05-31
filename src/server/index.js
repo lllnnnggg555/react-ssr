@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+import { hot } from 'react-hot-loader'
 
-export default class Test extends Component {
+class Test extends Component {
   render () {
     return (
-      <div>Hello world!!123456</div>
+      <div>Hello world!!12345</div>
     )
   }
 }
+
+export default hot(module)(Test)
